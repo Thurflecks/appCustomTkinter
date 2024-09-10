@@ -68,15 +68,14 @@ def dados():
                 dados_visivel = False
                 bt.configure(text="DADOS")
                 fechar = customtkinter.CTkButton(root, text="SAIR", command=sair, font=fonte)
-                fechar.place(x="245", y="350")
+                fechar.place(x="250", y="10")
                 btadicionar = customtkinter.CTkButton(root, text="ADICIONAR", command=adicionar, font=fonte)
-                btadicionar.place(x="155", y="350")
-                nome = customtkinter.CTkEntry(root, placeholder_text="Nome", font=fonte)
-                nome.place(relx="0.5", y="40", anchor="center")
-
-                preco = customtkinter.CTkEntry(root, placeholder_text="Preço", font=fonte)
-                preco.place(relx="0.5", y="80", anchor="center")
-                                                
+                btadicionar.place(x="245", y="350")
+                nome1 = customtkinter.CTkEntry(root, placeholder_text="Nome", font=fonte,  width=300, height=35)
+                nome1.place(relx="0.5", y="115", anchor="center")
+                preco1 = customtkinter.CTkEntry(root, placeholder_text="Preço", font=fonte,  width=300, height=35)
+                preco1.place(relx="0.5", y="160", anchor="center")
+                                                                
             
             
 
@@ -108,33 +107,38 @@ def up():
 def adicionar():
     root2 = customtkinter.CTkToplevel()
     root2.title("Adicionar")
-    root2.geometry("400x250")
-    root2.maxsize(400, 250)
-    root2.minsize(400, 250)
+    root2.geometry("400x300")
+    root2.maxsize(400, 300)
+    root2.minsize(400, 300)
     
     def salvar():
         try:
-            nome.up = nome.get()
-            preco.up = preco.get()
+            nome2.up = nome2.get()
+            preco2.up = preco2.get()
             cursor = bd.cursor()
-            print(nome.up, preco.up,)
+            print(nome2.up, preco2.up,)
             query = "INSERT INTO Produtos (nome, preco) VALUES (%s, %s)"
-            values = (nome.up, preco.up)
+            values = (nome2.up, preco2.up)
             cursor.execute(query, values)
             bd.commit()
+            nome2.delete(0, "end")
+            preco2.delete(0, "end")
             
         except ValueError:
             print("OS CAMPOS NÃO PODEM SER VAZIOS")
         
     
-    nome = customtkinter.CTkEntry(root2, placeholder_text="Nome", width=300, height=35)
-    nome.place(relx="0.5", y="40", anchor="center")
+    nome2 = customtkinter.CTkEntry(root2, placeholder_text="Nome", width=300, height=35)
+    nome2.place(relx="0.5", y="80", anchor="center")
 
-    preco = customtkinter.CTkEntry(root2, placeholder_text="Preço", width=300, height=35)
-    preco.place(relx="0.5", y="90", anchor="center")
+    preco2 = customtkinter.CTkEntry(root2, placeholder_text="Preço", width=300, height=35)
+    preco2.place(relx="0.5", y="130", anchor="center")
     
-    adicionar = customtkinter.CTkButton(root2, text="SALVAR", command=salvar, font=fonte)
-    adicionar.place(relx="0.5", y="200", anchor="center")
+    adicionar2 = customtkinter.CTkButton(root2, text="SALVAR", command=salvar, font=fonte)
+    adicionar2.place(relx="0.5", y="230", anchor="center")
+    
+    fechar2 = customtkinter.CTkButton(root2, text="SAIR", command=sair, font=fonte)
+    fechar2.place(x="250", y="10")
     
     
     root2.mainloop()
@@ -147,20 +151,20 @@ up = customtkinter.CTkButton(root, text="ATUALIZAR", command=up, corner_radius=1
 up.place(relx="0.5", y="250", anchor="center")
 
 fechar = customtkinter.CTkButton(root, text="SAIR", command=sair, font=fonte)
-fechar.place(x="245", y="350")
+fechar.place(x="250", y="10")
 
 btadicionar = customtkinter.CTkButton(root, text="ADICIONAR", command=adicionar, font=fonte)
-btadicionar.place(x="155", y="350")
+btadicionar.place(x="245", y="350")
 
 #entry
 idd = customtkinter.CTkEntry(root, placeholder_text="ID", font=fonte, width=60, height=35)
-idd.place(relx="0.5", y="55", anchor="center")
+idd.place(relx="0.5", y="70", anchor="center")
 
 nome1 = customtkinter.CTkEntry(root, placeholder_text="Nome", font=fonte,  width=300, height=35)
-nome1.place(relx="0.5", y="100", anchor="center")
+nome1.place(relx="0.5", y="115", anchor="center")
 
 preco1 = customtkinter.CTkEntry(root, placeholder_text="Preço", font=fonte,  width=300, height=35)
-preco1.place(relx="0.5", y="150", anchor="center")
+preco1.place(relx="0.5", y="160", anchor="center")
 
 
 root.mainloop()
