@@ -26,6 +26,7 @@ root.geometry("400x400")
 root.maxsize(400, 400)
 root.minsize(400, 400)
 fonte = customtkinter.CTkFont("gabriola", 14)
+
 #fechar janela
 def sair():
     root.destroy()
@@ -83,7 +84,7 @@ def dados():
         print(f"Erro ao buscar dados: {err}")
         
 
-        
+#atualizar dados      
 def up():
     try:
             nome1.up = nome1.get()
@@ -99,17 +100,22 @@ def up():
             values = (nome1.up, preco1.up, idd.up)
             cursor.execute(query, values)
             bd.commit()
+            nome1.delete(0, "end")
+            preco1.delete(0, "end")
             
             
     except ValueError:
         print("OS CAMPOS NÃO PODEM SER VAZIOS")
             
+#adicionando abrindo outra janela
 def adicionar():
     root2 = customtkinter.CTkToplevel()
     root2.title("Adicionar")
     root2.geometry("400x300")
     root2.maxsize(400, 300)
     root2.minsize(400, 300)
+    def sair2():
+        root2.destroy()
     
     def salvar():
         try:
@@ -137,7 +143,7 @@ def adicionar():
     adicionar2 = customtkinter.CTkButton(root2, text="SALVAR", command=salvar, font=fonte)
     adicionar2.place(relx="0.5", y="230", anchor="center")
     
-    fechar2 = customtkinter.CTkButton(root2, text="SAIR", command=sair, font=fonte)
+    fechar2 = customtkinter.CTkButton(root2, text="SAIR", command=sair2, font=fonte)
     fechar2.place(x="250", y="10")
     
     
