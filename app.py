@@ -1,6 +1,7 @@
 import customtkinter 
 import mysql.connector
 from mysql.connector import Error
+from tkinter import PhotoImage
 #config customTk
 customtkinter.set_appearance_mode("dark")
 customtkinter.set_default_color_theme("green")
@@ -14,7 +15,7 @@ try:
         database="teste"
     )
     if bd.is_connected():
-        print("conectou")
+        print("conectado")
 except Error as err:
     print(f"erro ao conectar ao banco de dados {err}")
 
@@ -25,6 +26,8 @@ root.title("Gestão")
 root.geometry("400x400")
 root.maxsize(400, 400)
 root.minsize(400, 400)
+#icone = PhotoImage(file="/home/two/Documentos/work/appCustomTkinter/ico.png")
+#root.iconphoto(True, icone)
 fonte = customtkinter.CTkFont("gabriola", 14)
 
 #fechar janela
@@ -104,7 +107,7 @@ def up():
             
             
     except ValueError as e:
-        aviso2.configure(text=str(e))
+        aviso2.configure(text=str(e), text_color="red")
             
 #adicionando abrindo outra janela
 def adicionar():
@@ -139,8 +142,7 @@ def adicionar():
             
             
         except ValueError as e:
-            aviso.configure(text=str(e))
-            print("koki")
+            aviso.configure(text=str(e), text_color="red")
        
     
     nome2 = customtkinter.CTkEntry(root2, placeholder_text="Nome", width=300, height=35, font=fonte)
@@ -177,10 +179,10 @@ btadicionar.place(x="245", y="350")
 idd = customtkinter.CTkEntry(root, placeholder_text="ID", font=fonte, width=60, height=35)
 idd.place(relx="0.5", y="70", anchor="center")
 
-nome1 = customtkinter.CTkEntry(root, placeholder_text="Nome", font=fonte,  width=300, height=35)
+nome1 = customtkinter.CTkEntry(root, placeholder_text="Novo Nome", font=fonte,  width=300, height=35)
 nome1.place(relx="0.5", y="115", anchor="center")
 
-preco1 = customtkinter.CTkEntry(root, placeholder_text="Preço", font=fonte,  width=300, height=35)
+preco1 = customtkinter.CTkEntry(root, placeholder_text="Novo Preço", font=fonte,  width=300, height=35)
 preco1.place(relx="0.5", y="160", anchor="center")
 
 #LABEL
