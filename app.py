@@ -160,7 +160,23 @@ def adicionar():
     
     
     root2.mainloop()
-
+    
+def pegarid():
+    cursor = bd.cursor()
+    query = "SELECT iid FROM Produtos"
+    cursor.execute(query)
+    resultados = cursor.fetchall()
+    ids.clear()
+    for row in resultados:
+        iid = str(row[0])
+        ids.append(iid)
+    idd.configure(values=ids)
+    if ids:
+        var.set(ids[0])
+        
+#vars   
+ids = []
+var = customtkinter.StringVar(root)
 #botoes
 
 bt = customtkinter.CTkButton(root, text="DADOS", command=dados, font=fonte)
@@ -175,8 +191,9 @@ fechar.place(x="250", y="10")
 btadicionar = customtkinter.CTkButton(root, text="ADICIONAR", command=adicionar, font=fonte)
 btadicionar.place(x="245", y="350")
 
+
 #entry
-idd = customtkinter.CTkEntry(root, placeholder_text="ID", font=fonte, width=60, height=35)
+idd = customtkinter.CTkOptionMenu(root, variable=var, values=ids)
 idd.place(relx="0.5", y="70", anchor="center")
 
 nome1 = customtkinter.CTkEntry(root, placeholder_text="Novo Nome", font=fonte,  width=300, height=35)
@@ -189,5 +206,8 @@ preco1.place(relx="0.5", y="160", anchor="center")
 aviso2 = customtkinter.CTkLabel(root, text=" ", font=fonte)
 aviso2.place(relx="0.5", y="290", anchor="center")
 
+#defs
+
+pegarid()
 
 root.mainloop()
