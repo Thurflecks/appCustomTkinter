@@ -26,13 +26,9 @@ root.title("Gestão")
 root.geometry("400x400")
 root.maxsize(400, 400)
 root.minsize(400, 400)
-#icone = PhotoImage(file="/home/two/Documentos/work/appCustomTkinter/ico.png")
-#root.iconphoto(True, icone)
+icone = PhotoImage(file="/home/two/Documentos/work/appCustomTkinter/ico.png")
+root.iconphoto(True, icone)
 fonte = customtkinter.CTkFont("gabriola", 14)
-
-#fechar janela
-def sair():
-    root.destroy()
 
 #exibir dados
 dados_visivel = False
@@ -60,7 +56,6 @@ def dados():
             dados.insert("1.0", dados_text)
             dados_visivel = True
             bt.configure(text="VOLTAR")
-            fechar.destroy()
             btadicionar.destroy()
             nome1.destroy()
             preco1.destroy()
@@ -71,8 +66,6 @@ def dados():
                 dados = None 
             dados_visivel = False
             bt.configure(text="DADOS")
-            fechar = customtkinter.CTkButton(root, text="SAIR", command=sair, font=fonte)
-            fechar.place(x="250", y="10")
             btadicionar = customtkinter.CTkButton(root, text="ADICIONAR", command=adicionar, font=fonte)
             btadicionar.place(x="245", y="350")
             nome1 = customtkinter.CTkEntry(root, placeholder_text="Nome", font=fonte,  width=300, height=35)
@@ -89,20 +82,21 @@ def dados():
 
 #atualizar dados      
 def up():
+    global ids
     try:
         nome1.up = nome1.get()
         preco1.up = preco1.get()
         cursor = bd.cursor()
-        idd.up = idd.get()
-        if not idd.up:
+        idd_up = idd.get()
+        if not idd_up or idd_up == " ":
             raise ValueError("OS VALORES NÃO PODEM SER VAZIOS")
         query = "UPDATE Produtos SET nome = %s, preco = %s WHERE iid = %s"
-        values = (nome1.up, preco1.up, idd.up)
+        values = (nome1.up, preco1.up, idd_up)
         cursor.execute(query, values)
         bd.commit()
         nome1.delete(0, "end")
         preco1.delete(0, "end")
-        idd.delete(0, "end")
+        var.set(ids[ids.__len__() - 1])
         aviso2.configure(text=" ")
             
             
@@ -154,12 +148,14 @@ def adicionar():
     adicionar2 = customtkinter.CTkButton(root2, text="SALVAR", command=salvar, font=fonte)
     adicionar2.place(relx="0.5", y="230", anchor="center")
     
-    fechar2 = customtkinter.CTkButton(root2, text="SAIR", command=sair2, font=fonte)
+    fechar2 = customtkinter.CTkButton(root2, text="VOLTAR", command=sair2, font=fonte)
     fechar2.place(x="250", y="10")
     
-    
-    
+    root2.wait_visibility()
+    root2.grab_set()
     root2.mainloop()
+    
+
     
 def pegarid():
     cursor = bd.cursor()
@@ -172,21 +168,19 @@ def pegarid():
         ids.append(iid)
     idd.configure(values=ids)
     if ids:
-        var.set(ids[0])
+        ids.append(" ")
+        var.set(ids[ids.__len__()- 1])
         
 #vars   
 ids = []
 var = customtkinter.StringVar(root)
 #botoes
 
-bt = customtkinter.CTkButton(root, text="DADOS", command=dados, font=fonte)
+bt = customtkinter.CTkButton(root, text="DADOS", command=dados, font=fonte, image=icone)
 bt.place(x="20", y="350")
 
 up = customtkinter.CTkButton(root, text="ATUALIZAR", command=up, corner_radius=10, font=fonte)
 up.place(relx="0.5", y="250", anchor="center")
-
-fechar = customtkinter.CTkButton(root, text="SAIR", command=sair, font=fonte)
-fechar.place(x="250", y="10")
 
 btadicionar = customtkinter.CTkButton(root, text="ADICIONAR", command=adicionar, font=fonte)
 btadicionar.place(x="245", y="350")
