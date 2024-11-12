@@ -1,7 +1,7 @@
 import customtkinter 
 import mysql.connector
 from mysql.connector import Error
-from tkinter import PhotoImage
+# from tkinter import PhotoImage
 #config customTk
 customtkinter.set_appearance_mode("dark")
 customtkinter.set_default_color_theme("green")
@@ -26,8 +26,8 @@ root.title("Gestão")
 root.geometry("400x400")
 root.maxsize(400, 400)
 root.minsize(400, 400)
-icone = PhotoImage(file="/home/two/Documentos/work/appCustomTkinter/ico.png")
-root.iconphoto(True, icone)
+# icone = PhotoImage(file="/home/two/Documentos/work/appCustomTkinter/ico.png")
+# root.iconphoto(True, icone)
 fonte = customtkinter.CTkFont("gabriola", 14)
 
 #exibir dados
@@ -176,7 +176,7 @@ ids = []
 var = customtkinter.StringVar(root)
 #botoes
 
-bt = customtkinter.CTkButton(root, text="DADOS", command=dados, font=fonte, image=icone)
+bt = customtkinter.CTkButton(root, text="DADOS", command=dados, font=fonte)
 bt.place(x="20", y="350")
 
 up = customtkinter.CTkButton(root, text="ATUALIZAR", command=up, corner_radius=10, font=fonte)
